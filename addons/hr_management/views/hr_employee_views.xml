@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee Profile Views -->
+    <record id="view_hr_employee_profile_tree" model="ir.ui.view">
+        <field name="name">hr.employee.profile.tree</field>
+        <field name="model">hr.employee.profile</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="work_email"/>
+                <field name="work_phone"/>
+                <field name="start_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_profile_form" model="ir.ui.view">
+        <field name="name">hr.employee.profile.form</field>
+        <field name="model">hr.employee.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="work_email"/>
+                        <field name="work_phone"/>
+                    </group>
+                    <group string="Emergency Contact">
+                        <field name="emergency_contact_name"/>
+                        <field name="emergency_contact_phone"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Trainings">
+                            <field name="training_enrollment_ids">
+                                <tree>
+                                    <field name="training_session_id"/>
+                                    <field name="enrollment_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Certificates">
+                            <field name="certificate_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="training_session_id"/>
+                                    <field name="issue_date"/>
+                                    <field name="score"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_profile" model="ir.actions.act_window">
+        <field name="name">Employee Profiles</field>
+        <field name="res_model">hr.employee.profile</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menus (under HR root) -->
+    <menuitem id="menu_hr_management_root"
+              name="HR Management"
+              parent="hr.menu_hr_root"
+              sequence="80"/>
+
+    <menuitem id="menu_hr_employee_profile"
+              name="Employee Profiles"
+              parent="menu_hr_management_root"
+              action="action_hr_employee_profile"
+              sequence="10"/>
+</odoo>

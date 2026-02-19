@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Training Session Views -->
+    <record id="view_hr_training_session_tree" model="ir.ui.view">
+        <field name="name">hr.training.session.tree</field>
+        <field name="model">hr.training.session</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration_hours"/>
+                <field name="trainer_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_training_session_form" model="ir.ui.view">
+        <field name="name">hr.training.session.form</field>
+        <field name="model">hr.training.session</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="trainer_name"/>
+                    </group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="duration_hours"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Enrollments">
+                            <field name="enrollment_ids">
+                                <tree>
+                                    <field name="employee_profile_id"/>
+                                    <field name="enrollment_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Certificates">
+                            <field name="certificate_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="employee_profile_id"/>
+                                    <field name="issue_date"/>
+                                    <field name="score"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_training_session" model="ir.actions.act_window">
+        <field name="name">Training Sessions</field>
+        <field name="res_model">hr.training.session</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Enrollment Views -->
+    <record id="view_hr_training_enrollment_tree" model="ir.ui.view">
+        <field name="name">hr.training.enrollment.tree</field>
+        <field name="model">hr.training.enrollment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_profile_id"/>
+                <field name="training_session_id"/>
+                <field name="enrollment_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_training_enrollment_form" model="ir.ui.view">
+        <field name="name">hr.training.enrollment.form</field>
+        <field name="model">hr.training.enrollment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_profile_id"/>
+                        <field name="training_session_id"/>
+                    </group>
+                    <group>
+                        <field name="enrollment_date"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_training_enrollment" model="ir.actions.act_window">
+        <field name="name">Training Enrollments</field>
+        <field name="res_model">hr.training.enrollment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Certificate Views -->
+    <record id="view_hr_training_certificate_tree" model="ir.ui.view">
+        <field name="name">hr.training.certificate.tree</field>
+        <field name="model">hr.training.certificate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_profile_id"/>
+                <field name="training_session_id"/>
+                <field name="issue_date"/>
+                <field name="score"/>
+                <field name="certificate_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_training_certificate_form" model="ir.ui.view">
+        <field name="name">hr.training.certificate.form</field>
+        <field name="model">hr.training.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="certificate_number"/>
+                    </group>
+                    <group>
+                        <field name="employee_profile_id"/>
+                        <field name="training_session_id"/>
+                    </group>
+                    <group>
+                        <field name="issue_date"/>
+                        <field name="score"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_training_certificate" model="ir.actions.act_window">
+        <field name="name">Training Certificates</field>
+        <field name="res_model">hr.training.certificate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_hr_training_session"
+              name="Training Sessions"
+              parent="hr_management.menu_hr_management_root"
+              action="action_hr_training_session"
+              sequence="20"/>
+
+    <menuitem id="menu_hr_training_enrollment"
+              name="Training Enrollments"
+              parent="hr_management.menu_hr_management_root"
+              action="action_hr_training_enrollment"
+              sequence="30"/>
+
+    <menuitem id="menu_hr_training_certificate"
+              name="Training Certificates"
+              parent="hr_management.menu_hr_management_root"
+              action="action_hr_training_certificate"
+              sequence="40"/>
+</odoo>

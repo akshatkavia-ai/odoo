@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vehicle Views -->
+    <record id="view_fleet_management_vehicle_tree" model="ir.ui.view">
+        <field name="name">fleet.management.vehicle.tree</field>
+        <field name="model">fleet.management.vehicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="vin_sn"/>
+                <field name="acquisition_date"/>
+                <field name="odometer"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fleet_management_vehicle_form" model="ir.ui.view">
+        <field name="name">fleet.management.vehicle.form</field>
+        <field name="model">fleet.management.vehicle</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="license_plate"/>
+                        <field name="vin_sn"/>
+                    </group>
+                    <group>
+                        <field name="acquisition_date"/>
+                        <field name="odometer"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Maintenance">
+                            <field name="maintenance_record_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="maintenance_date"/>
+                                    <field name="vendor"/>
+                                    <field name="cost"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fleet_management_vehicle" model="ir.actions.act_window">
+        <field name="name">Custom Vehicles</field>
+        <field name="res_model">fleet.management.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Maintenance Views -->
+    <record id="view_fleet_maintenance_record_tree" model="ir.ui.view">
+        <field name="name">fleet.maintenance.record.tree</field>
+        <field name="model">fleet.maintenance.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="maintenance_date"/>
+                <field name="vendor"/>
+                <field name="cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fleet_maintenance_record_form" model="ir.ui.view">
+        <field name="name">fleet.maintenance.record.form</field>
+        <field name="model">fleet.maintenance.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="vehicle_id"/>
+                    </group>
+                    <group>
+                        <field name="maintenance_date"/>
+                        <field name="vendor"/>
+                        <field name="cost"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fleet_maintenance_record" model="ir.actions.act_window">
+        <field name="name">Maintenance Records</field>
+        <field name="res_model">fleet.maintenance.record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menus (under Fleet root) -->
+    <menuitem id="menu_fleet_management_root"
+              name="Fleet Management"
+              parent="fleet.fleet_menu_root"
+              sequence="80"/>
+
+    <menuitem id="menu_fleet_management_vehicle"
+              name="Custom Vehicles"
+              parent="menu_fleet_management_root"
+              action="action_fleet_management_vehicle"
+              sequence="10"/>
+
+    <menuitem id="menu_fleet_maintenance_record"
+              name="Maintenance Records"
+              parent="menu_fleet_management_root"
+              action="action_fleet_maintenance_record"
+              sequence="20"/>
+</odoo>
