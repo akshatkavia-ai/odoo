@@ -51,3 +51,4 @@ package.json
 /man/
 /share/
 /src/
+.file_activity_report.json
